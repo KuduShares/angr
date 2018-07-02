@@ -2675,9 +2675,10 @@ class CFGFast(ForwardAnalysis, CFGBase):    # pylint: disable=abstract-method
             resolved_by = None
             targets = None
 
+            block = self._lift(jump.addr, opt_level=1)
+
             for resolver in self.indirect_jump_resolvers:
                 resolver.base_state = self._base_state
-                block = self._lift(jump.addr, opt_level=1)
 
                 if not resolver.filter(self, jump.addr, jump.func_addr, block, jump.jumpkind):
                     continue
